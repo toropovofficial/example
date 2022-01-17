@@ -10,7 +10,7 @@
         <h2 >{{ item.number }}</h2>
       </div>
     </div>
-    <template v-if="item.child">
+    <template v-if="item.child.length">
       <component
         v-for="item in item.child"
         :key="item.name"
@@ -56,10 +56,10 @@ export default {
       return this.child ? 'user-child' : 'user-main';
     },
     isChild() {
-      return this.item.child ? 'yes' : '';
+      return this.item.child.length ? 'yes' : '';
     },
     isImage() {
-      if (this.item.child) {
+      if (this.item.child.length) {
         if (this.item.child[0].isShow) {
           return 'minus';
         } return 'plus';

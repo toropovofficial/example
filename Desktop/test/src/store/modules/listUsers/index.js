@@ -11,24 +11,28 @@ export default class UsersListModule {
         number: 24,
         id: Math.random(),
         isShow: true,
+        child: [],
       },
       {
         name: 'user2',
         number: 25,
         id: Math.random(),
         isShow: true,
+        child: [],
       },
       {
         name: 'user3',
         number: 23,
         id: Math.random(),
         isShow: true,
+        child: [],
       },
       {
         name: 'user4',
         number: 19,
         id: Math.random(),
         isShow: true,
+        child: [],
       },
     ];
 
@@ -50,19 +54,8 @@ export default class UsersListModule {
 
   @Mutation
     changeAllParentUsersList(list) {
-      list.forEach((item) => {
-        this.allParentUsersList.push({
-          name: item.name,
-          id: item.id,
-        });
-        if (item.child) this.changeAllParentUsersList(item.child);
-      });
+      this.allParentUsersList = list;
     }
-
-  @Mutation
-  clearallParentUsersList() {
-    this.allParentUsersList = [];
-  }
 
   @Mutation
   createUserListInLocalStorage() {
@@ -78,40 +71,36 @@ export default class UsersListModule {
   }
 
   @Mutation()
-  addChild({ childName, childNumber }) {
-    if (this.parentUser) {
-      let isShowStatus = this.parentUser.isShow;
-      if (this.parentUser.child) {
-        const [firstChild] = this.parentUser.child;
-        isShowStatus = firstChild.isShow;
-      }
-      if (!this.parentUser.child) this.parentUser.child = [];
-      this.parentUser.child.push({
-        name: childName,
-        number: childNumber,
-        id: Math.random(),
-        isShow: isShowStatus,
-      });
-    }
-    this.parentUser = '';
+  addChild(user) {
+    if (this.parentUser) this.parentUser.child.push(user);
   }
 
   @Mutation()
   changeShow() {
-    if (!this.parentUser.child) return;
     this.parentUser.child.forEach((item) => { item.isShow = !item.isShow; });
   }
 
   @Action()
   createdChildUser(newUser) {
     this.findParentUser({ list: this.listUsers, params: newUser.parentName });
-    this.addChild(newUser);
+    let isShowStatus = this.parentUser.isShow;
+    if (this.parentUser.child.length) {
+      const [firstChild] = this.parentUser.child;
+      isShowStatus = firstChild.isShow;
+    }
+    this.addChild({
+      name: newUser.childName,
+      number: newUser.childNumber,
+      id: Math.random(),
+      isShow: isShowStatus,
+      child: [],
+    });
   }
 
   @Action()
   changeIsShowChildEl(id) {
     this.findParentUser({ list: this.listUsers, params: id });
-    this.changeShow();
+    if (this.parentUser.child.length) this.changeShow();
   }
 
   @Action()
@@ -121,7 +110,17 @@ export default class UsersListModule {
 
   @Action()
   callChangeAllParentUsersList() {
-    this.clearallParentUsersList();
-    this.changeAllParentUsersList(this.listUsers);
+    const parentUsersListUpdate = [];
+    function test(list) {
+      list.forEach((item) => {
+        parentUsersListUpdate.push({
+          name: item.name,
+          id: item.id,
+        });
+        if (item.child.length) test(item.child);
+      });
+    }
+    test(this.listUsers);
+    this.changeAllParentUsersList(parentUsersListUpdate);
   }
 }

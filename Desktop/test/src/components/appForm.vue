@@ -1,5 +1,5 @@
 <template lang="">
-  <form v-if="isForm" @submit.prevent="addNewUser" class="mainForm">
+  <form  ref="form" v-if="isForm" @submit.prevent="addNewUser" class="mainForm">
     <h2>Добавление пользователя</h2>
     <form-input
       v-model="childName"
@@ -55,6 +55,7 @@ export default {
           parentName: this.parentName,
         };
         this.$store.dispatch('usersList/createdChildUser', newUser);
+        this.$refs.form.reset();
       }
     },
     closeForm() {
@@ -66,7 +67,7 @@ export default {
       return this.$store.getters['mainForm/getStatusForm'];
     },
     listUsersForSelect() {
-      this.$store.dispatch('usersList/callChangeAllParentUsersList');
+      this.$store.dispatch('usersList/callChangeAllParentUsersList', this.$store.getters['usersList/getListUsers']);
       return this.$store.getters['usersList/getAllParent'];
     },
   },
