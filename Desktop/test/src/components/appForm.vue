@@ -55,7 +55,6 @@ export default {
           parentName: this.parentName,
         };
         this.$store.dispatch('usersList/createdChildUser', newUser);
-        this.$emit('formSubmit');
       }
     },
     closeForm() {
