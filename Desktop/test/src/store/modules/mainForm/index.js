@@ -4,7 +4,7 @@ import {
 
 export default class MainFormModule {
     @State()
-    statusForm = true;
+    statusForm = false;
 
   @Getter()
     get getStatusForm() {
@@ -13,7 +13,7 @@ export default class MainFormModule {
 
   @Mutation
   openForm() {
-    this.statusForm = false;
+    this.statusForm = true;
   }
 
   @Mutation
