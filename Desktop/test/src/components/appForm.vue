@@ -1,5 +1,6 @@
 <template lang="">
   <form v-if="isForm" @submit.prevent="addNewUser" class="mainForm">
+    <h2>Добавление пользователя</h2>
     <form-input
       v-model="childName"
       :placeHolder="'Введите имя'"
@@ -90,7 +91,7 @@ export default {
     cursor: pointer;
   }
 }
-.test {
-  display: none;
+h2 {
+  margin-bottom: 10px;
 }
 </style>
