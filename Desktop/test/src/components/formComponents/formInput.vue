@@ -7,7 +7,7 @@
       :placeholder="placeHolder"
       class="input"
       :class="{'error': checkError}"
-      v-mask="inputType === 'tel' ? '# ### ### ## ##' : 'XXXXXXXXXXXXXXXXXXXXXXX'"
+      v-mask="inputType === 'tel' ? '# ### ### ## ##' : 'XXXXXXXXXXXXXXXX'"
     />
   </div>
 </template>
