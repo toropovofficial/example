@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <home-table></home-table>
-    <appForm></appForm>
+    <app-form></app-form>
   </div>
 </template>
 
