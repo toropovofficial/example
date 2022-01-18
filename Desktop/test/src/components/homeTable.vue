@@ -1,5 +1,5 @@
 <template>
-  <div  class="home__table">
+  <div :style="randomColor"  class="home__table">
     <button @click="openForm" class="btn" >добавить</button>
     <child :item="'firstEl'"> </child>
     <child v-for="item in listUsers" :key="item.id" :item="item"> </child>
@@ -10,6 +10,7 @@
 import child from './child.vue';
 
 export default {
+  name: 'homeTable',
   components: {
     child,
   },

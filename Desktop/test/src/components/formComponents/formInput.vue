@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="mainForm__wrapper">
+  <div  @click.stop="showStatistiks" :style="randomColor" class="mainForm__wrapper">
     <label class="label">{{ labelText }}</label>
     <input
       @input="sendModelValue($event)"
@@ -7,7 +7,8 @@
       :placeholder="placeHolder"
       class="input"
       :class="{'error': checkError}"
-      v-mask="inputType === 'tel' ? '# ### ### ## ##' : 'XXXXXXXXXXXXXXXX'"
+      v-mask="inputType === 'tel' ? '# ### ### ## ##' : 'XXXXXXXXXXXXXXX'"
+      :disabled="randomColor"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@
 import { mask } from 'vue-the-mask';
 
 export default {
+  name: 'formInput',
   directives: { mask },
   emits: ['update:modelValue'],
   props: {

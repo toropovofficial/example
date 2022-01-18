@@ -1,8 +1,12 @@
 <template>
- <div class="mainForm__wrapper">
+ <div  @click.stop="showStatistiks" :style="randomColor" class="mainForm__wrapper">
     <label class="label">{{ labelText }}</label>
-     <select class="select" @change="sendValue($event)" >
-      <option :value="item.name"
+     <select
+      class="select"
+      @change="sendValue($event)"
+      :disabled="randomColor">
+      <option
+        :value="item.name"
         v-for="(item, index) in usersForSelect"
         :key="index">
         {{item.name}}
@@ -13,6 +17,7 @@
 
 <script>
 export default {
+  name: 'formSelect',
   emits: ['update:modelValue'],
   props: {
     modelValue: {

@@ -1,5 +1,6 @@
 <template lang="">
-  <form  ref="form" v-if="isForm" @submit.prevent="addNewUser" class="mainForm">
+  <form  @click.stop="showStatistiks"  :style="randomColor"
+  ref="form" v-if="isForm" @submit.prevent="addNewUser" class="mainForm">
     <h2>Добавление пользователя</h2>
     <form-input
       v-model="childName"
@@ -21,7 +22,7 @@
       :usersForSelect="listUsersForSelect"
       :labelText="'Начальник'">
     </form-select>
-    <formButton></formButton>
+    <form-button></form-button>
     <img @click="closeForm" class="mainForm__close" src="https://img.icons8.com/emoji/48/000000/cross-mark-emoji.png"/>
   </form>
 </template>
@@ -47,8 +48,9 @@ export default {
   },
   methods: {
     addNewUser() {
-      if (!(this.childName && this.childNumber && this.parentName)) this.formIsValid = false;
-      else {
+      if (!(this.childName && this.childNumber && this.parentName && !this.randomColor)) {
+        this.formIsValid = false;
+      } else {
         const newUser = {
           childName: this.childName,
           childNumber: this.childNumber,
@@ -59,7 +61,7 @@ export default {
       }
     },
     closeForm() {
-      this.$store.dispatch('mainForm/changeStatusForm');
+      if (!this.randomColor) this.$store.dispatch('mainForm/changeStatusForm');
     },
   },
   computed: {
@@ -67,7 +69,7 @@ export default {
       return this.$store.getters['mainForm/getStatusForm'];
     },
     listUsersForSelect() {
-      this.$store.dispatch('usersList/callChangeAllParentUsersList', this.$store.getters['usersList/getListUsers']);
+      this.$store.dispatch('usersList/changeAllParentUsersList', this.$store.getters['usersList/getListUsers']);
       return this.$store.getters['usersList/getAllParent'];
     },
   },

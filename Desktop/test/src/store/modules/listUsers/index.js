@@ -53,7 +53,7 @@ export default class UsersListModule {
   }
 
   @Mutation
-    changeAllParentUsersList(list) {
+    setAllParentUsersList(list) {
       this.allParentUsersList = list;
     }
 
@@ -109,18 +109,18 @@ export default class UsersListModule {
   }
 
   @Action()
-  callChangeAllParentUsersList() {
+  changeAllParentUsersList() {
     const parentUsersListUpdate = [];
-    function test(list) {
+    function addParentUserInList(list) {
       list.forEach((item) => {
         parentUsersListUpdate.push({
           name: item.name,
           id: item.id,
         });
-        if (item.child.length) test(item.child);
+        if (item.child?.length) addParentUserInList(item.child);
       });
     }
-    test(this.listUsers);
-    this.changeAllParentUsersList(parentUsersListUpdate);
+    addParentUserInList(this.listUsers);
+    this.setAllParentUsersList(parentUsersListUpdate);
   }
 }

@@ -1,5 +1,9 @@
 <template lang="">
-  <div v-if="item.isShow" @click.stop="showChildUsers"  class="user"  :class="userStatus">
+  <div
+    :style="randomColor"
+    v-if="item.isShow" @click.stop="showChildUsers(), showStatistiks()"
+    class="user"
+    :class="userStatus">
     <div  class="user__wrapper">
       <div class="user__name">
          <h1 >{{ item.name }}</h1>
@@ -15,12 +19,13 @@
         v-for="item in item.child"
         :key="item.name"
         :item="item"
-        :is="'my-component'"
+        :is="'user'"
         :child="true">
       </component>
     </template>
   </div>
-   <div v-if="item === 'firstEl'"   class="user"  :class="userStatus">
+   <div @click.stop="showStatistiks"
+   v-if="item === 'firstEl'" :style="randomColor"   class="user"  :class="userStatus">
     <div  class="user__wrapper">
       <div class="user__name">
          <h1 >Имя</h1>
@@ -35,7 +40,7 @@
 <script>
 
 export default {
-  name: 'my-component',
+  name: 'user',
   props: {
     item: {
       default: '',
@@ -44,11 +49,12 @@ export default {
       type: Boolean,
     },
   },
-
   methods: {
     showChildUsers() {
-      this.isImage = !this.isImage;
-      this.$store.dispatch('usersList/changeIsShowChildEl', this.item.id);
+      if (!this.randomColor) {
+        this.isImage = !this.isImage;
+        this.$store.dispatch('usersList/changeIsShowChildEl', this.item.id);
+      }
     },
   },
   computed: {
