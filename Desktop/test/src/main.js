@@ -25,7 +25,6 @@ app.mixin({
         let arrayData = [];
         if (this.$options.data) arrayData = Object.entries(this.$options.data());
         arrayData = arrayData.map((item) => `${item[0]}:  ${item[1] ? item[1] : 'пустая строка'}`);
-        console.log(this.$options.data);
         this.$store.dispatch('componentInfo/changeComponentStatistics', {
           name: this.$options.name,
           components: this.$options.components,
@@ -33,7 +32,6 @@ app.mixin({
           methods: this.$options.methods,
           data: arrayData,
         });
-        console.log(this.$store.getters['componentInfo/getComponentStatistics']);
       }
     },
   },

@@ -21,23 +21,55 @@
         </components-data>
         </div>
          <h3 v-else >кликните на компонет чтобы посмотреть его содержимое</h3>
+         <graph :percent="percent"></graph>
   </div>
 </template>
 
 <script>
 import componentsData from './componentData.vue';
+import graph from './graph.vue';
 
 export default {
   name: 'componentsInfoPage',
   components: {
     componentsData,
+    graph,
+  },
+  data() {
+    return {
+      percent: [],
+    };
   },
   computed: {
     test() {
       if (Object.keys(this.$store.getters['componentInfo/getComponentStatistics']).length) {
+        this.calculationPercent(this.$store.getters['componentInfo/getComponentStatistics']);
         return this.$store.getters['componentInfo/getComponentStatistics'];
       }
       return false;
+    },
+  },
+  methods: {
+    calculationPercent(obj) {
+      const {
+        components, computed, methods, data,
+      } = obj;
+      let array = [components, computed, methods, data];
+      array = array.map((item) => {
+        if (item) {
+          return Object.keys(item).length;
+        }
+        return 0;
+      });
+      this.percent = this.toPercentages(array);
+      console.log(this.percent);
+    },
+    toPercentages(list) {
+      let total = 0;
+      list.forEach((item) => {
+        total += item;
+      });
+      return list.map((x) => parseFloat(((x * 100) / total).toFixed(2)));
     },
   },
 };
