@@ -28,7 +28,7 @@ app.mixin({
         this.$store.dispatch('componentInfo/changeComponentStatistics', {
           name: this.$options.name,
           components: this.$options.components,
-          computed: this.$options.computed,
+          computeds: this.$options.computed,
           methods: this.$options.methods,
           data: arrayData,
         });

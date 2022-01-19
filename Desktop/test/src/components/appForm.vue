@@ -1,6 +1,10 @@
 <template lang="">
-  <form  @click.stop="showStatistiks"  :style="randomColor"
-  ref="form" v-if="isForm" @submit.prevent="addNewUser" class="mainForm">
+  <form
+    @click.stop="showStatistiks"
+    :style="randomColor"
+    ref="form" v-if="isForm"
+    @submit.prevent="addNewUser"
+    class="mainForm">
     <h2>Добавление пользователя</h2>
     <form-input
       v-model="childName"
@@ -11,7 +15,7 @@
     </form-input>
     <form-input
       v-model="childNumber"
-      :placeHolder="'Введите возраст'"
+      :placeHolder="'Введите номер телефона'"
       :labelText="'Телефон'"
       :inputType="'tel'"
       :formIsValid="formIsValid"
@@ -48,8 +52,8 @@ export default {
   },
   methods: {
     addNewUser() {
-      if (!(this.childName && this.childNumber && this.parentName && !this.randomColor)) {
-        this.formIsValid = false;
+      if (!(this.childName && this.childNumber && this.parentName)) {
+        if (this.randomColor === false) this.formIsValid = false;
       } else {
         const newUser = {
           childName: this.childName,

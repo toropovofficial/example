@@ -11,7 +11,7 @@
 import appForm from '../components/appForm.vue';
 import homeTable from '../components/homeTable.vue';
 import backLigth from '../components/backlight.vue';
-import componentInformation from '../components/componentInformation/componentsInfoPage.vue';
+import componentInformation from '../components/componentInformation/componentInformation.vue';
 
 export default {
   name: 'Home',

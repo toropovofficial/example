@@ -1,17 +1,30 @@
 <template>
-<ul v-if="childs" class="component-information__components"> {{text}}
-  <li v-for="item in childs" :key="item"  >{{item.name || item}}</li>
+<ul
+  v-if="transformChilds.length"
+  class="component-information__components">
+  {{text}}
+  <li v-for="item in transformChilds" :key="item"  >{{item.name || item}}</li>
 </ul>
-<div v-else >{{text}} нет</div>
 </template>
 
 <script>
 export default {
-  name: 'childComponents',
+  name: 'componentsData',
   props: {
-    childs: {},
+    childs: {
+      type: Object,
+    },
     text: {
       type: String,
+    },
+  },
+  mounted() {
+    console.log(this.childs);
+  },
+  computed: {
+    transformChilds() {
+      if (this.childs) return Object.values(this.childs);
+      return false;
     },
   },
 };

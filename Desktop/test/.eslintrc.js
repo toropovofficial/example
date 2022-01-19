@@ -15,7 +15,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     "no-param-reassign": 0,
     "skipBlankLines": 0,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "global-require": 0,
     // "emitDecoratorMetadata": true,
     // "experimentalDecorators": true,
   },
