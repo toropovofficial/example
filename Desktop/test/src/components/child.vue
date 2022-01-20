@@ -1,7 +1,7 @@
 <template lang="">
   <div
     :style="randomColor"
-    v-if="item.isShow" @click.stop="showChildUsers(), showStatistiks()"
+    v-if="item.isShow" @click.stop=" !randomColor ? showChildUsers() : showStatistiks()"
     class="user"
     :class="userStatus">
     <div  class="user__wrapper">
@@ -51,10 +51,8 @@ export default {
   },
   methods: {
     showChildUsers() {
-      if (!this.randomColor) {
-        this.isImage = !this.isImage;
-        this.$store.dispatch('usersList/changeIsShowChildEl', this.item.id);
-      }
+      this.isImage = !this.isImage;
+      this.$store.dispatch('usersList/changeIsShowChildEl', this.item.id);
     },
   },
   computed: {

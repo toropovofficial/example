@@ -18,9 +18,6 @@ export default {
       type: String,
     },
   },
-  mounted() {
-    console.log(this.childs);
-  },
   computed: {
     transformChilds() {
       if (this.childs) return Object.values(this.childs);

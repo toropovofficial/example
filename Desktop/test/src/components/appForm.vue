@@ -53,7 +53,7 @@ export default {
   methods: {
     addNewUser() {
       if (!(this.childName && this.childNumber && this.parentName)) {
-        if (this.randomColor === false) this.formIsValid = false;
+        this.formIsValid = false;
       } else {
         const newUser = {
           childName: this.childName,
@@ -62,10 +62,11 @@ export default {
         };
         this.$store.dispatch('usersList/createdChildUser', newUser);
         this.$refs.form.reset();
+        this.formIsValid = true;
       }
     },
     closeForm() {
-      if (!this.randomColor) this.$store.dispatch('mainForm/changeStatusForm');
+      this.$store.dispatch('mainForm/changeStatusForm');
     },
   },
   computed: {
