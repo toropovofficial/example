@@ -15,9 +15,6 @@
 
 export default {
   name: 'componentsFotoPage',
-  mounted() {
-    console.log(this.$store.getters['componentInfo/getComponentStatistics']);
-  },
   computed: {
     componentData() {
       const { name } = this.$store.getters['componentInfo/getComponentStatistics'];
@@ -45,11 +42,9 @@ export default {
     background: #1e1e1e;
     img {
       width: 100%;
-      scrollbar-color: #458245 #714826!important;     /* «цвет ползунка» «цвет полосы скроллбара» */
-      scrollbar-width: auto;  /* толщина */
     }
     &::-webkit-scrollbar {
-      width: 10px; /* ширина для вертикального скролла */
+      width: 10px;
       background-color: #00d8ff;
       border-radius: 15px;
     }

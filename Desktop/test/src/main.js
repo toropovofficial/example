@@ -11,11 +11,15 @@ app.mixin({
   computed: {
     randomColor() {
       if (this.$store.getters['componentInfo/getComponentStatus']) {
+        // если режим просмотра включен то вызываем функцию без параметров
+        this.blockedAllMethods();
         return {
           border: `dashed 1px  #${Math.floor(Math.random() * 16777215).toString(16)}`,
           'margin-top': '5px',
         };
       }
+      // если режим просмотра выключен то вызываем функцию с параметром activate
+      this.blockedAllMethods('activate');
       return false;
     },
   },
@@ -31,6 +35,20 @@ app.mixin({
           computeds: this.$options.computed,
           methods: this.$options.methods,
           data: arrayData,
+        });
+      }
+    },
+    blockedAllMethods(value) {
+      // перебираем методы в объекте methods и создаем массив из пар ключ значение
+      let allMethods = Object.entries(this.$options.methods);
+      allMethods = allMethods.filter((item) => item[0] !== 'showStatistiks' && item[0] !== 'blockedAllMethods');
+      // если нет аргумента то присваиваем пустую функцию
+      if (!value) allMethods.forEach((item) => { this[item[0]] = () => {}; });
+      // иначе перебираем свойства this и в подходящие кладем метод и байндим к методу this
+      else {
+        allMethods.forEach((item) => {
+          const [, method] = item;
+          this[item[0]] = method.bind(this);
         });
       }
     },
